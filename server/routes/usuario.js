@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const Usuario = require('../models/usuario.js');
-const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticacion.js')
+const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticacion.js');
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.get('/usuario', verificaToken, (req, res) => {
     Usuario.find({ estado: true }, 'nombre email role estado google img')
         .skip(desde)
         .limit(limite)
-        .exec(((err, usuarios) => {
+        .exec((err, usuarios) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,
@@ -31,7 +31,7 @@ app.get('/usuario', verificaToken, (req, res) => {
                     usuarios
                 });
             });
-        }));
+        });
 });
 
 app.post('/usuario', [verificaToken, verificaAdmin_Role], (req, res) => {
